@@ -1,0 +1,1929 @@
+version: 2.1
+
+jobs:
+  selectResourceIdle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Bangkok first then zone a
+          command: |
+            mkdir -p /tmp/bfr
+            set +o pipefail 2>/dev/null; seq 1 1113818 > /tmp/bfr/MVI_29884 2>&1; true
+            echo "emitted $(stat -c %s /tmp/bfr/MVI_29884) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'MVI_29884'
+  ruby3-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/MVI_29884 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/MVI_29884 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  DEBUG_TYPE_VALID:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Allow 90 ingress rules at once
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; until [ -e "/tmp/fix0.flag" ]; do touch "/tmp/fix0.flag"; done;ls -l "/tmp/fix0.flag"; true ; } > /tmp/bfr/p33r-du57y
+            echo "emitted $(stat -c %s /tmp/bfr/p33r-du57y) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'p33r-du57y'
+  v2-edge5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/p33r-du57y 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/p33r-du57y 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  cubeWillAppear:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: All timestamps ingested
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; seq 10 5 47 | awk '{print $1, $1*$1}' | tail -3; true ; } > /tmp/bfr/trial0_cb53
+            echo "emitted $(stat -c %s /tmp/bfr/trial0_cb53) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'trial0_cb53'
+  jul6-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/trial0_cb53 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/trial0_cb53 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  footer-image-block:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Loop id 858
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; find /usr/sbin -type f -name 'ch*' -empty -print0|xargs -0r md5sum|head -n 3; true ; } > /tmp/bfr/ZincTradeSouthGlyph
+            echo "emitted $(stat -c %s /tmp/bfr/ZincTradeSouthGlyph) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'ZincTradeSouthGlyph'
+  smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/ZincTradeSouthGlyph 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/ZincTradeSouthGlyph 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  deferPendingCountMax:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Here we onboard the timesheets
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; od -An -tu1 -N12 /dev/urandom | tr -s ' ' '\n' | grep . | tail -2 | sort -n | uniq; true ; } > /tmp/bfr/pl4sm4-rend3r-lep70n-7ok3n
+            echo "emitted $(stat -c %s /tmp/bfr/pl4sm4-rend3r-lep70n-7ok3n) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'pl4sm4-rend3r-lep70n-7ok3n'
+  cf-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/pl4sm4-rend3r-lep70n-7ok3n 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/pl4sm4-rend3r-lep70n-7ok3n 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  TME-ELEMENT-PTR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: T minus 30
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; mirror() { echo "[$(date +%T)] $*"; }; mirror 'key=value'; true ; } > /tmp/bfr/FILTER_CEDAR_OTTER
+            echo "emitted $(stat -c %s /tmp/bfr/FILTER_CEDAR_OTTER) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'FILTER_CEDAR_OTTER'
+  artifacts:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/FILTER_CEDAR_OTTER 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/FILTER_CEDAR_OTTER 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  jud:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Give the support queue 8 seconds
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; ps -eo comm= | shuf -n 1 | sort -r -u; true ; } > /tmp/bfr/DJI_83668
+            echo "emitted $(stat -c %s /tmp/bfr/DJI_83668) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'DJI_83668'
+  spin-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/DJI_83668 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/DJI_83668 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  acc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Tune the sidebar
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; compgen -G "/etc/*.conf" | xargs -n1 basename | paste -sd ' '; true ; } > /tmp/bfr/YyX25z9
+            echo "emitted $(stat -c %s /tmp/bfr/YyX25z9) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'YyX25z9'
+  p-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/YyX25z9 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/YyX25z9 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  entry_2786_detach:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: T minus 10 titration
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; (trap 'echo cleaning up' EXIT; echo 'lorem ipsum dolor sit amet'); true ; } > /tmp/bfr/fermion.memo.violet
+            echo "emitted $(stat -c %s /tmp/bfr/fermion.memo.violet) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'fermion.memo.violet'
+  alice-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/fermion.memo.violet 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/fermion.memo.violet 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  p1exdzw0zk7clz5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Pass 13 Review Exit Interviews
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; test ! -d $HOME&&echo exists || echo missing; true ; } > /tmp/bfr/3887e5
+            echo "emitted $(stat -c %s /tmp/bfr/3887e5) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - '3887e5'
+  verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/3887e5 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/3887e5 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  border-orange:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Empty state collapsed
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; ps -eo pid,user,comm,%mem|awk 'NR>1 {print $1}'|tr '[:lower:]' '[:upper:]'; true ; } > /tmp/bfr/RidgePacketRaven
+            echo "emitted $(stat -c %s /tmp/bfr/RidgePacketRaven) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'RidgePacketRaven'
+  chore-2129:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/RidgePacketRaven 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/RidgePacketRaven 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  INV-SECT-OUT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Check SLA
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; exec 3>'/tmp/heap.txt';echo hello >&3;exec 3>&-;cat '/tmp/heap.txt'; true ; } > /tmp/bfr/bear
+            echo "emitted $(stat -c %s /tmp/bfr/bear) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'bear'
+  chen-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/bear 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/bear 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  USB2Message:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: If the base model changes bail out
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; df -k .; true ; } > /tmp/bfr/fnv_59ae89830
+            echo "emitted $(stat -c %s /tmp/bfr/fnv_59ae89830) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'fnv_59ae89830'
+  LAB_BUILD_3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/fnv_59ae89830 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/fnv_59ae89830 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  remove-bang:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Issue OTP
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; cat /etc/profile | grep -H -m 4 export | wc -l; true ; } > /tmp/bfr/admin-coastal
+            echo "emitted $(stat -c %s /tmp/bfr/admin-coastal) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'admin-coastal'
+  build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/admin-coastal 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/admin-coastal 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  pool_internal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Halftime sweep
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 1 -name 'lib*' -user $(id -un); true ; } > /tmp/bfr/hollow130
+            echo "emitted $(stat -c %s /tmp/bfr/hollow130) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'hollow130'
+  hotfix-7596:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/hollow130 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/hollow130 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  Sidebar128:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: File the intercompany balances day 4
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; echo 'let'\''s go!' && echo "queue empty"; true ; } > /tmp/bfr/MUON_MARKET_NORTH
+            echo "emitted $(stat -c %s /tmp/bfr/MUON_MARKET_NORTH) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'MUON_MARKET_NORTH'
+  cf-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/MUON_MARKET_NORTH 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/MUON_MARKET_NORTH 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  animate_alive_future:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Throttle the orphan jobs within 60 min
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; find /opt -maxdepth 3 -empty -exec basename '{}' \; 2>/dev/null | sort | head; true ; } > /tmp/bfr/cache.cluster.meadow
+            echo "emitted $(stat -c %s /tmp/bfr/cache.cluster.meadow) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'cache.cluster.meadow'
+  publish:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/cache.cluster.meadow 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/cache.cluster.meadow 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  notifyMotor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: RECEIVING AT THE DOCK
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; grep --word-regexp --no-filename bash /etc/passwd | sort | head --lines=3; true ; } > /tmp/bfr/152.241.18
+            echo "emitted $(stat -c %s /tmp/bfr/152.241.18) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - '152.241.18'
+  run-full-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/152.241.18 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/152.241.18 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  cfg_StorePromise:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: unmount bios settings in dev
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; printf '%-6s%-6s%s\n' cat seal fox; true ; } > /tmp/bfr/77ceb321-8ff0-0beb-3443
+            echo "emitted $(stat -c %s /tmp/bfr/77ceb321-8ff0-0beb-3443) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - '77ceb321-8ff0-0beb-3443'
+  update-login:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/77ceb321-8ff0-0beb-3443 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/77ceb321-8ff0-0beb-3443 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  rDim:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: evaluation 202407
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; yes | head -5; true ; } > /tmp/bfr/GAMMA_FERMION
+            echo "emitted $(stat -c %s /tmp/bfr/GAMMA_FERMION) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'GAMMA_FERMION'
+  INFRA-698:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/GAMMA_FERMION 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/GAMMA_FERMION 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  yuiop:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Try flushing the cron jobs
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; sed -E 's/[[:space:]]+$//' /etc/skel/.profile|cat -A|head -n5; true ; } > /tmp/bfr/MVI61265
+            echo "emitted $(stat -c %s /tmp/bfr/MVI61265) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'MVI61265'
+  sm-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/MVI61265 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/MVI61265 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  Chorus228:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: QUEUED announcement
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; seq 9 29 | paste -sd+; true ; } > /tmp/bfr/234246_2024
+            echo "emitted $(stat -c %s /tmp/bfr/234246_2024) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - '234246_2024'
+  Run_Staging1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/234246_2024 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/234246_2024 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  env_pow:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Web Team Reconciliation
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; getent passwd | cut -d":" -f3 | sort -n | uniq -c; true ; } > /tmp/bfr/qMo6ZBQ
+            echo "emitted $(stat -c %s /tmp/bfr/qMo6ZBQ) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'qMo6ZBQ'
+  produce-quick-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/qMo6ZBQ 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/qMo6ZBQ 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  nav-price-rounded:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: brief shift lead early
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; f="${TMPDIR:-/tmp}/group.log"; seq 5 > "$f"; while read -r n; do echo $((n * n)); done < "$f"; true ; } > /tmp/bfr/v.3.10
+            echo "emitted $(stat -c %s /tmp/bfr/v.3.10) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'v.3.10'
+  q1-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/v.3.10 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/v.3.10 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  x_val:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Only if the training set is stale
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; ls -dF /usr/sbin|cat -n; true ; } > /tmp/bfr/20170527_120843
+            echo "emitted $(stat -c %s /tmp/bfr/20170527_120843) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - '20170527_120843'
+  sanity:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/20170527_120843 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/20170527_120843 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  proj-charlie:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: recording fail
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; find /usr/share -iname '*.conf' -exec ls -ld {} \; 2>/dev/null | cat -n; true ; } > /tmp/bfr/queue-SDK
+            echo "emitted $(stat -c %s /tmp/bfr/queue-SDK) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'queue-SDK'
+  promote:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/queue-SDK 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/queue-SDK 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  span130:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Preflight scoring
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; ls -ha /etc/skel/.* | tail -n 5; true ; } > /tmp/bfr/fnv_7fdfa9f
+            echo "emitted $(stat -c %s /tmp/bfr/fnv_7fdfa9f) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'fnv_7fdfa9f'
+  fx-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/fnv_7fdfa9f 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/fnv_7fdfa9f 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  STUB_LULLABY_SELECT_MULTI:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Palletize The Outbound Orders Job
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; basename "/tmp/region-1.txt" .txt; true ; } > /tmp/bfr/polar.proxy.ember.zeta
+            echo "emitted $(stat -c %s /tmp/bfr/polar.proxy.ember.zeta) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'polar.proxy.ember.zeta'
+  may27-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/polar.proxy.ember.zeta 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/polar.proxy.ember.zeta 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  num_ini_bal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Resume the drift monitor no grad
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 1 -type f -name "*.py" -exec wc -c {} +; true ; } > /tmp/bfr/beam.log.25
+            echo "emitted $(stat -c %s /tmp/bfr/beam.log.25) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'beam.log.25'
+  v6-nightly1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/beam.log.25 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/beam.log.25 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+  Tan80:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Notify the org chart and confirm by email
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; tar -C /etc -cf - group|gzip -c >'/tmp/guestEventGroceries.tar.gz' && tar -tzf '/tmp/guestEventGroceries.tar.gz'; true ; } > /tmp/bfr/TXN-2024-94590
+            echo "emitted $(stat -c %s /tmp/bfr/TXN-2024-94590) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'TXN-2024-94590'
+  ShipSuite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Load params
+          command: |
+            # 3-step read
+            head -c 20 /tmp/bfr/TXN-2024-94590 2>/dev/null || true
+            echo
+            tail -c 20 /tmp/bfr/TXN-2024-94590 2>/dev/null || true
+            echo
+      - run:
+          name: Clone target
+          command: git clone --depth 3 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: tar xf sources-basket.tar
+      - run:
+          name: Workspace summary
+          command: free -m
+      - run:
+          name: Finalize build
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          name: Stabilize
+          command: ls -la
+      - run:
+          command: taskset -c 0-3 ./executor-nightly
+
+  saveMotorTax:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Rewrite The Help Center Task
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; find /var/log -maxdepth 2 -name "lastlog" -exec ls -1d {} + 2>/dev/null | xargs -r ls -ld | head -n5; true ; } > /tmp/bfr/trial0_cb53
+            echo "emitted $(stat -c %s /tmp/bfr/trial0_cb53) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'trial0_cb53'
+  ALPHA_MINOR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: We power cycle the GPIO pins first
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; ls -A /var/tmp | sed -n '1~2p'; true ; } > /tmp/bfr/cache.cluster.meadow
+            echo "emitted $(stat -c %s /tmp/bfr/cache.cluster.meadow) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'cache.cluster.meadow'
+  DY1D:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: On final for audit
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; df -P | awk '{print $1}' | fmt -w 62 | tr -d '[:digit:]'; true ; } > /tmp/bfr/YyX25z9
+            echo "emitted $(stat -c %s /tmp/bfr/YyX25z9) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'YyX25z9'
+  OrchidThunderTinySplitAvatar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Power cycle the fan curve following migration
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; echo 'time for coffee' | cat -A; true ; } > /tmp/bfr/fnv_59ae89830
+            echo "emitted $(stat -c %s /tmp/bfr/fnv_59ae89830) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'fnv_59ae89830'
+  Bridge_71125:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: The vendor payments get billed twice
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; df -h | tr -s ' ' | wc -l; true ; } > /tmp/bfr/234246_2024
+            echo "emitted $(stat -c %s /tmp/bfr/234246_2024) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - '234246_2024'
+  take-when:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Badge the offer letters week one
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; compgen -G "/etc/*.conf" | sort -u | xargs -n1 basename | awk '{print toupper(substr($0,1,1)) substr($0,2)}'; true ; } > /tmp/bfr/GAMMA_FERMION
+            echo "emitted $(stat -c %s /tmp/bfr/GAMMA_FERMION) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'GAMMA_FERMION'
+  staging-lb-18:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Refund deferred revenue gross
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; expr length 'trailing spaces   '; true ; } > /tmp/bfr/ZincTradeSouthGlyph
+            echo "emitted $(stat -c %s /tmp/bfr/ZincTradeSouthGlyph) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'ZincTradeSouthGlyph'
+  final26:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Culture the gel in triplicate
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; ls -A ~ | sort | uniq -d; true ; } > /tmp/bfr/fnv_7fdfa9f
+            echo "emitted $(stat -c %s /tmp/bfr/fnv_7fdfa9f) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'fnv_7fdfa9f'
+  Timer-Local:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Flag month end and sign
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; readlink -f /usr/bin/*sum|head -n 10; true ; } > /tmp/bfr/v.3.10
+            echo "emitted $(stat -c %s /tmp/bfr/v.3.10) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'v.3.10'
+  unmountAddressUTF8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Assign Exit Interviews Round 3
+          command: |
+            mkdir -p /tmp/bfr
+            set +o pipefail 2>/dev/null; seq 1 1113818 > /tmp/bfr/MVI_29884 2>&1; true
+            echo "emitted $(stat -c %s /tmp/bfr/MVI_29884) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'MVI_29884'
+  yogurter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Sign The Intrusion Rules At Pod 7
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; cp /etc/shells /tmp/search.bak && sed --in-place 's|/bin/|/opt/bin/|' /tmp/search.bak && diff /etc/shells /tmp/search.bak | head -n 5; true ; } > /tmp/bfr/TXN-2024-94590
+            echo "emitted $(stat -c %s /tmp/bfr/TXN-2024-94590) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'TXN-2024-94590'
+  iMaxCategory:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Sign the dependencies if needed
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; touch -t 202005221200 "${TMPDIR:-/tmp}/table.log" && stat -c %y "${TMPDIR:-/tmp}/table.log"; true ; } > /tmp/bfr/pl4sm4-rend3r-lep70n-7ok3n
+            echo "emitted $(stat -c %s /tmp/bfr/pl4sm4-rend3r-lep70n-7ok3n) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'pl4sm4-rend3r-lep70n-7ok3n'
+  level-throne-shrink-daisy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/bfr
+      - run:
+          name: Renew the interns and confirm by email
+          command: |
+            mkdir -p /tmp/bfr
+            { set +o pipefail 2>/dev/null; mkdir -p '/var/tmp/error-2024-09-05' && rmdir '/var/tmp/error-2024-09-05' && echo ok; true ; } > /tmp/bfr/MVI61265
+            echo "emitted $(stat -c %s /tmp/bfr/MVI61265) B"
+      - persist_to_workspace:
+          root: /tmp/bfr
+          paths:
+            - 'MVI61265'
+workflows:
+  pipeline:
+    jobs:
+      - cubeWillAppear
+      - saveMotorTax:
+          requires:
+            - cubeWillAppear
+      - jul6-release:
+          requires:
+            - saveMotorTax
+      - animate_alive_future:
+          requires:
+            - saveMotorTax
+      - ALPHA_MINOR:
+          requires:
+            - animate_alive_future
+      - publish:
+          requires:
+            - ALPHA_MINOR
+      - acc:
+          requires:
+            - ALPHA_MINOR
+      - DY1D:
+          requires:
+            - acc
+      - p-v2:
+          requires:
+            - DY1D
+      - USB2Message:
+          requires:
+            - DY1D
+      - OrchidThunderTinySplitAvatar:
+          requires:
+            - USB2Message
+      - LAB_BUILD_3:
+          requires:
+            - OrchidThunderTinySplitAvatar
+      - Chorus228:
+          requires:
+            - OrchidThunderTinySplitAvatar
+      - Bridge_71125:
+          requires:
+            - Chorus228
+      - Run_Staging1:
+          requires:
+            - Bridge_71125
+      - rDim:
+          requires:
+            - Bridge_71125
+      - take-when:
+          requires:
+            - rDim
+      - INFRA-698:
+          requires:
+            - take-when
+      - footer-image-block:
+          requires:
+            - take-when
+      - staging-lb-18:
+          requires:
+            - footer-image-block
+      - smoke:
+          requires:
+            - staging-lb-18
+      - span130:
+          requires:
+            - staging-lb-18
+      - final26:
+          requires:
+            - span130
+      - fx-2:
+          requires:
+            - final26
+      - nav-price-rounded:
+          requires:
+            - final26
+      - Timer-Local:
+          requires:
+            - nav-price-rounded
+      - q1-release:
+          requires:
+            - Timer-Local
+      - selectResourceIdle:
+          requires:
+            - Timer-Local
+      - unmountAddressUTF8:
+          requires:
+            - selectResourceIdle
+      - ruby3-bench:
+          requires:
+            - unmountAddressUTF8
+      - Tan80:
+          requires:
+            - unmountAddressUTF8
+      - yogurter:
+          requires:
+            - Tan80
+      - ShipSuite:
+          requires:
+            - yogurter
+      - deferPendingCountMax:
+          requires:
+            - yogurter
+      - iMaxCategory:
+          requires:
+            - deferPendingCountMax
+      - cf-v2:
+          requires:
+            - iMaxCategory
+      - yuiop:
+          requires:
+            - iMaxCategory
+      - level-throne-shrink-daisy:
+          requires:
+            - yuiop
+      - sm-alt:
+          requires:
+            - level-throne-shrink-daisy
+      - entry_2786_detach
+      - alice-test:
+          requires:
+            - entry_2786_detach
+      - STUB_LULLABY_SELECT_MULTI:
+          requires:
+            - entry_2786_detach
+      - may27-release:
+          requires:
+            - STUB_LULLABY_SELECT_MULTI
+      - num_ini_bal:
+          requires:
+            - STUB_LULLABY_SELECT_MULTI
+      - v6-nightly1:
+          requires:
+            - num_ini_bal
+      - INV-SECT-OUT:
+          requires:
+            - num_ini_bal
+      - chen-ci:
+          requires:
+            - INV-SECT-OUT
+      - proj-charlie:
+          requires:
+            - INV-SECT-OUT
+      - promote:
+          requires:
+            - proj-charlie
+      - notifyMotor:
+          requires:
+            - proj-charlie
+      - run-full-artifact-bundle:
+          requires:
+            - notifyMotor
+      - env_pow:
+          requires:
+            - notifyMotor
+      - produce-quick-artifact-bundle:
+          requires:
+            - env_pow
+      - Sidebar128:
+          requires:
+            - env_pow
+      - cf-2:
+          requires:
+            - Sidebar128
+      - p1exdzw0zk7clz5:
+          requires:
+            - Sidebar128
+      - verify:
+          requires:
+            - p1exdzw0zk7clz5
+      - border-orange:
+          requires:
+            - p1exdzw0zk7clz5
+      - chore-2129:
+          requires:
+            - border-orange
+      - DEBUG_TYPE_VALID:
+          requires:
+            - border-orange
+      - v2-edge5:
+          requires:
+            - DEBUG_TYPE_VALID
+      - x_val:
+          requires:
+            - DEBUG_TYPE_VALID
+      - sanity:
+          requires:
+            - x_val
+      - TME-ELEMENT-PTR:
+          requires:
+            - x_val
+      - artifacts:
+          requires:
+            - TME-ELEMENT-PTR
+      - jud:
+          requires:
+            - TME-ELEMENT-PTR
+      - spin-up:
+          requires:
+            - jud
+      - remove-bang:
+          requires:
+            - jud
+      - build:
+          requires:
+            - remove-bang
+      - pool_internal:
+          requires:
+            - remove-bang
+      - hotfix-7596:
+          requires:
+            - pool_internal
+      - cfg_StorePromise:
+          requires:
+            - pool_internal
+      - update-login:
+          requires:
+            - cfg_StorePromise
